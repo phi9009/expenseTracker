@@ -4,18 +4,19 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
-export default function TrackedItem() {
+import './TrackedItem.css'
+export default function TrackedItem( {value, isExpense, title, description}) {
 	return (
 		<Card variant='outlined'>
             <CardContent>
                 <Typography variant='h5' component="div">
-                    Example Expense/income
+                    {title}
                 </Typography>
                 <Typography variant="body2">
-                    Description (optional)
+                    {description}
                 </Typography>
-                <Typography variant='h6'>
-                    $100.00
+                <Typography variant='h6' className={isExpense?"expense": ""}>
+                {isExpense?"-": ""}${value}
                 </Typography>
             </CardContent>
             <CardActions>
