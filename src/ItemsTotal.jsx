@@ -13,18 +13,18 @@ export default function ItemsTotal( {value, expenseTotal, expenseCount, incomeTo
 		<Card variant='outlined' className='ItemsTotal'>
             <CardContent>
                 <Typography variant='h6' component='h6' className={(value < 0) ? "negative" : ""} >
-                    Total: {(value < 0) ? "-" : ""}${Math.abs(value)}
+                    Total: {(value < 0) ? "-" : ""}${Math.abs(value).toFixed(2)}
                 </Typography>
                 <Divider sx={{m: 2}}/>
                 <Typography variant="body2">
-                    Total expenses: ${expenseTotal}
+                    Total expenses: ${expenseTotal.toFixed(2)}
                 </Typography>
                 <Typography variant="body2">
                     Number of expenses items: {expenseCount}
                 </Typography>
                 <Divider sx={{m: 2}}/>
                 <Typography variant="body2">
-                    Total income: ${incomeTotal}
+                    Total income: ${incomeTotal.toFixed(2)}
                 </Typography>
                 <Typography variant="body2">
                     Number of income items: {incomeCount}
