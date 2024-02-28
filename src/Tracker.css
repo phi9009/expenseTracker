@@ -1,11 +1,29 @@
-.Tracker {
-    width: 60%;
-
-    margin: 10px auto ;
-    margin-top: 50px;
+#root {
+    height: 100vh;
 }
 
+.Tracker {
+    min-width: 500px;
+    display:flex;
+    flex-direction: row;
+    margin: 10px;
+    height: 80vh;
+}
+.fullTracker {
+    height: 80vh;
+}
 .Tracker .Header{
     margin: 20px;
 }
+.Header {
+    margin-top: 50px;
+}
+.item-stack {
+    display:block;
+    flex-direction: column;
+    width: 450px;
+    
+    overflow-y: auto;
+}
+
 

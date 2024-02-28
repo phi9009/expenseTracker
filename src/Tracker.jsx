@@ -1,7 +1,7 @@
 import { useState } from "react";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
-
+import Box from '@mui/material/Box';
 import Divider from "@mui/material/Divider";
 
 import Typography from "@mui/material/Typography";
@@ -11,8 +11,6 @@ import ItemsTotal from "./ItemsTotal";
 import AddItem from "./AddItem";
 
 import "./Tracker.css";
-
-
 
 function loadItems() {
 	const test = dayjs();
@@ -24,7 +22,7 @@ function loadItems() {
 			id: uuidv4(),
 			title: "Rent",
 			description: "my weekly rent contribution",
-			date: dayjs()
+			date: dayjs(),
 		},
 		{
 			value: 432,
@@ -32,7 +30,7 @@ function loadItems() {
 			id: uuidv4(),
 			title: "Paycheck",
 			description: "my paycheck from my job",
-			date: dayjs()
+			date: dayjs(),
 		},
 		{
 			value: 20,
@@ -40,10 +38,57 @@ function loadItems() {
 			id: uuidv4(),
 			title: "fast food",
 			description: "mmmmh, McDonalds",
-			date: dayjs()
+			date: dayjs(),
+		},
+		{
+			value: 3002,
+			isExpense: true,
+			id: uuidv4(),
+			title: "Rent",
+			description: "my weekly rent contribution",
+			date: dayjs(),
+		},
+		{
+			value: 432,
+			isExpense: false,
+			id: uuidv4(),
+			title: "Paycheck",
+			description: "my paycheck from my job",
+			date: dayjs(),
+		},
+		{
+			value: 20,
+			isExpense: true,
+			id: uuidv4(),
+			title: "fast food",
+			description: "mmmmh, McDonalds",
+			date: dayjs(),
+		},
+		{
+			value: 3002,
+			isExpense: true,
+			id: uuidv4(),
+			title: "Rent",
+			description: "my weekly rent contribution",
+			date: dayjs(),
+		},
+		{
+			value: 432,
+			isExpense: false,
+			id: uuidv4(),
+			title: "Paycheck",
+			description: "my paycheck from my job",
+			date: dayjs(),
+		},
+		{
+			value: 20,
+			isExpense: true,
+			id: uuidv4(),
+			title: "fast food",
+			description: "mmmmh, McDonalds",
+			date: dayjs(),
 		},
 	];
-
 }
 
 export default function Tracker() {
@@ -90,32 +135,40 @@ export default function Tracker() {
 	};
 
 	return (
-		<div className="Tracker">
-			<Typography variant="h3" component="h1" className="Header">
-				Expense Tracker
-			</Typography>
-			{trackedItems.map((item, i) => (
-				<TrackedItem
-					key={item.id}
-					value={item.value}
-					isExpense={item.isExpense}
-					title={item.title}
-					description={item.description}
-					date={item.date}
-					remove={() => removeItem(item.id)}
-					update={updateItem}
-					id={item.id}
-				/>
-			))}
-			<AddItem add={addItem} />
-			<Divider>Total</Divider>
-			<ItemsTotal
-				value={budgetTotal}
-				incomeTotal={incomeTotal}
-				incomeCount={incomeCount}
-				expenseTotal={expenseTotal}
-				expenseCount={expenseCount}
-			/>
+		<div className="fullTracker">
+			<div className="Header">
+				<Typography className="header" variant="h3" component="h3" sx={{width: 1}} >(Current Day)</Typography>
+			</div>
+			<div className="Tracker">
+				<Box className="item-stack">
+				
+					{trackedItems.map((item, i) => (
+						<TrackedItem
+							key={item.id}
+							value={item.value}
+							isExpense={item.isExpense}
+							title={item.title}
+							description={item.description}
+							date={item.date}
+							remove={() => removeItem(item.id)}
+							update={updateItem}
+							id={item.id}
+						/>
+					))}
+					<AddItem add={addItem} />
+					
+				
+				</Box>
+				
+				<ItemsTotal
+						className="Total"
+						value={budgetTotal}
+						incomeTotal={incomeTotal}
+						incomeCount={incomeCount}
+						expenseTotal={expenseTotal}
+						expenseCount={expenseCount}
+					/>
+			</div>
 		</div>
 	);
 }
