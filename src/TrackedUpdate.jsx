@@ -16,9 +16,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function TrackedUpdate({value, isExpense, title, description, back, update,date, id}){ 
+export default function TrackedUpdate({value, isExpense, title, description, back,category, update,date, id}){ 
     
-    const [item, updateItem] = useState({value, isExpense, title, description, date});
+    const [item, updateItem] = useState({value, isExpense, title, description, date, category});
 
     const handleToggle = (event) => {
         const newItem = {...item, isExpense: event.target.checked};
@@ -35,12 +35,18 @@ export default function TrackedUpdate({value, isExpense, title, description, bac
         updateItem(newItem);
     }
 
+    const changeCat = (event) => {
+        const newItem = {...item, category: event.target.value};
+        updateItem(newItem);
+    }
+
     const changeDesc = (event) => {
         const newItem = {...item, description: event.target.value};
         updateItem(newItem);
     }
 
     const changeValue = (event) => {
+
         const newItem = {...item, value: parseFloat(event.target.value)};
         updateItem(newItem);
     }
@@ -84,6 +90,14 @@ export default function TrackedUpdate({value, isExpense, title, description, bac
             onChange={changeDesc}
             sx={{ m: 1 }}
         />
+        <TextField
+            fullWidth
+            id="outlined-required"
+            label="Category"
+            value={item.category}
+            onChange={changeCat}
+            sx={{ m: 1 }}
+        />
          <FormControl fullWidth sx={{ m: 1 }}>
           <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
           <OutlinedInput
@@ -91,6 +105,7 @@ export default function TrackedUpdate({value, isExpense, title, description, bac
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             label="Amount"
             value={item.value}
+            precision={2}
             onChange={changeValue}
           />
         </FormControl>

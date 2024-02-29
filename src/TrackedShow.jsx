@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-export default function TrackedShow({value, isExpense, title, description,date, remove, edit}){ 
+export default function TrackedShow({value, isExpense, title, description,date, remove, category, edit}){ 
     
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
@@ -19,6 +19,10 @@ export default function TrackedShow({value, isExpense, title, description,date, 
                 </Typography>
                 <Typography variant="body3">
                     {months[date.$M]} - {date.$D} - {date.$y} 
+                </Typography>
+                <Divider sx={{m: 1}}/>
+                <Typography variant="body2">
+                    category: {category}
                 </Typography>
                 <Divider sx={{m: 1}}/>
                 <Typography variant='h6' className={isExpense?"expense": ""}>

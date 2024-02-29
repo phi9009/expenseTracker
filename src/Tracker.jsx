@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import TrackedItem from "./TrackedItem";
 import ItemsTotal from "./ItemsTotal";
 import AddItem from "./AddItem";
+import TagCharts from "./TagCharts";
 
 import "./Tracker.css";
 
@@ -17,77 +18,34 @@ function loadItems() {
 	console.log(test);
 	return [
 		{
-			value: 3002,
+			value: 250,
 			isExpense: true,
 			id: uuidv4(),
 			title: "Rent",
 			description: "my weekly rent contribution",
 			date: dayjs(),
+			category: "housing"
 		},
 		{
-			value: 432,
+			value: 672,
 			isExpense: false,
 			id: uuidv4(),
 			title: "Paycheck",
 			description: "my paycheck from my job",
 			date: dayjs(),
+			category: "work"
+			
 		},
 		{
-			value: 20,
+			value: 13.99,
 			isExpense: true,
 			id: uuidv4(),
-			title: "fast food",
+			title: "McDonalds",
 			description: "mmmmh, McDonalds",
 			date: dayjs(),
-		},
-		{
-			value: 3002,
-			isExpense: true,
-			id: uuidv4(),
-			title: "Rent",
-			description: "my weekly rent contribution",
-			date: dayjs(),
-		},
-		{
-			value: 432,
-			isExpense: false,
-			id: uuidv4(),
-			title: "Paycheck",
-			description: "my paycheck from my job",
-			date: dayjs(),
-		},
-		{
-			value: 20,
-			isExpense: true,
-			id: uuidv4(),
-			title: "fast food",
-			description: "mmmmh, McDonalds",
-			date: dayjs(),
-		},
-		{
-			value: 3002,
-			isExpense: true,
-			id: uuidv4(),
-			title: "Rent",
-			description: "my weekly rent contribution",
-			date: dayjs(),
-		},
-		{
-			value: 432,
-			isExpense: false,
-			id: uuidv4(),
-			title: "Paycheck",
-			description: "my paycheck from my job",
-			date: dayjs(),
-		},
-		{
-			value: 20,
-			isExpense: true,
-			id: uuidv4(),
-			title: "fast food",
-			description: "mmmmh, McDonalds",
-			date: dayjs(),
-		},
+			category: "fast food"
+			
+		}
 	];
 }
 
@@ -99,15 +57,19 @@ export default function Tracker() {
 	let incomeTotal = 0;
 	let expenseCount = 0;
 	let incomeCount = 0;
+	const incomeData = [];
+	const expenseData = [];
 	for (let i of trackedItems) {
 		if (i.isExpense === true) {
 			budgetTotal -= i.value;
 			expenseTotal += i.value;
 			expenseCount++;
+			expenseData.push({id: expenseData.length, value: i.value, label: i.category })
 		} else {
 			budgetTotal += i.value;
 			incomeTotal += i.value;
 			incomeCount++;
+			incomeData.push({id: incomeData.length, value: i.value , label: i.category })
 		}
 	}
 	const removeItem = (id) => {
@@ -150,8 +112,9 @@ export default function Tracker() {
 							title={item.title}
 							description={item.description}
 							date={item.date}
+							category={item.category}
 							remove={() => removeItem(item.id)}
-							update={updateItem}
+							update={updateItem}							
 							id={item.id}
 						/>
 					))}
@@ -168,6 +131,7 @@ export default function Tracker() {
 						expenseTotal={expenseTotal}
 						expenseCount={expenseCount}
 					/>
+				<TagCharts incomeData={incomeData} expenseData={expenseData}/>
 			</div>
 		</div>
 	);

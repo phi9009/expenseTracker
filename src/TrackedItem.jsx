@@ -7,7 +7,7 @@ import './TrackedItem.css'
 
 
 
-export default function TrackedItem( {value, isExpense, title, description,date, remove, update, id}) {
+export default function TrackedItem( {value, isExpense, title, description,date, remove, update, category, id}) {
     const [isBeingEditted, setEditted] = useState(false);
 
     const itemShow = (
@@ -16,6 +16,7 @@ export default function TrackedItem( {value, isExpense, title, description,date,
             isExpense={isExpense}
             title={title}
             description={description}
+            category={category}
             remove={remove}
             date = {date}
             edit = {() => setEditted(true)}
@@ -29,6 +30,7 @@ export default function TrackedItem( {value, isExpense, title, description,date,
 				isExpense={isExpense}
 				title={title}
 				description={description}
+                category={category}
 				date = {date}
                 back = {() => setEditted(false)}
                 update = {update}
