@@ -9,29 +9,31 @@ import { PieChart } from '@mui/x-charts/PieChart';
 export default function TagCharts({incomeData, expenseData, title}){
     return(
         <Card variant='outlined' className='TrackedItem' sx={{display: "flex", p: 2, flexWrap: "wrap"}}>
-            <Typography className="header" variant="h4" component="div" sx={{mb: 3, width: 1}}>{title}</Typography>
+            <Typography className="header" variant="h4" component="div" sx={{mb: 2, width: 1}}>{title}</Typography>
              <div>
-             <Typography className="header" variant="h5" component="h5" sx={{mb: 3}}>Income</Typography>
+             <Typography className="header" variant="h5" component="h5" sx={{mb: 2}}>Income</Typography>
              <PieChart
                 series={[
                     {
-                    data: incomeData
+                    data: incomeData,
+                    outerRadius: 50
                     },
                 ]}
                 width={260}
-                height={100}
+                height={250}
                 />
             </div>
             <div>
-             <Typography className="header" variant="h5" component="h5" sx={{mb: 3}}>Expenses</Typography>
+             <Typography className="header" variant="h5" component="h5" sx={{mb: 2}}>Expenses</Typography>
                <PieChart
                 series={[
                     {
-                    data: expenseData
+                    data: expenseData,
+                    outerRadius: 50
                     },
                 ]}
                 width={260}
-                height={100}
+                height={250}
                 />
             </div> 
         </Card>

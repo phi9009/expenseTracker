@@ -44,6 +44,33 @@ function loadItems() {
 			date: dayjs(),
 			category: "fast food",
 		},
+		{
+			value: 250,
+			isExpense: true,
+			id: uuidv4(),
+			title: "Rent",
+			description: "my weekly rent contribution",
+			date: dayjs(),
+			category: "housing",
+		},
+		{
+			value: 672,
+			isExpense: false,
+			id: uuidv4(),
+			title: "Paycheck",
+			description: "my paycheck from my job",
+			date: dayjs(),
+			category: "work",
+		},
+		{
+			value: 13.99,
+			isExpense: true,
+			id: uuidv4(),
+			title: "McDonalds",
+			description: "mmmmh, McDonalds",
+			date: dayjs(),
+			category: "fast food",
+		},
 	];
 }
 
@@ -62,20 +89,38 @@ export default function Tracker() {
 			budgetTotal -= i.value;
 			expenseTotal += i.value;
 			expenseCount++;
-			expenseData.push({
-				id: expenseData.length,
-				value: i.value,
-				label: i.category,
-			});
+			const checkExpense = expenseData.find( (e) => {
+				console.log(i);
+				if(e.label === i.category)return true;
+				else return false;
+			}) 
+			if(checkExpense){
+				checkExpense.value += i.value;
+			}else{
+				expenseData.push({
+					id: expenseData.length,
+					value: i.value,
+					label: i.category,
+				});
+			}
 		} else {
 			budgetTotal += i.value;
 			incomeTotal += i.value;
 			incomeCount++;
+			const checkIncome = incomeData.find( (e) => {
+				console.log(i);
+				if(e.label === i.category)return true;
+				else return false;
+			}) 
+			if(checkIncome){
+				checkIncome.value += i.value;
+			}else{
 			incomeData.push({
 				id: incomeData.length,
 				value: i.value,
 				label: i.category,
 			});
+			}
 		}
 	}
 	const removeItem = (id) => {
@@ -111,7 +156,7 @@ export default function Tracker() {
 					component="h3"
 					sx={{ width: 1 }}
 				>
-					(Current Day)
+					(Current Month)
 				</Typography>
 			</div>
 			<div className="Tracker">
