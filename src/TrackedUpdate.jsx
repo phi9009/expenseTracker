@@ -1,13 +1,11 @@
 import { useState } from "react";
 
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -26,7 +24,9 @@ export default function TrackedUpdate({value, isExpense, title, description, bac
     };
 
     const handleUpdate = (event) => {
-        update(id, item);
+        let newValue =  parseFloat(item.value); 
+        const newItem = {...item, value : newValue};
+        update(id, newItem);
         back();
     }
     
@@ -47,11 +47,13 @@ export default function TrackedUpdate({value, isExpense, title, description, bac
 
     const changeValue = (event) => {
 
-        const newItem = {...item, value: parseFloat(event.target.value)};
+        const newItem = {...item, value: event.target.value};
         updateItem(newItem);
+        
     }
 
     const handleDate = (newDate) => {
+        
         const newItem = {...item, date: newDate};
         updateItem(newItem);
     }

@@ -18,6 +18,11 @@
 .Header {
     margin-top: 50px;
 }
+.data {
+    display:flex;
+    flex-direction: row;    
+    
+}
 .item-stack {
     display:block;
     flex-direction: column;

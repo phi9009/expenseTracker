@@ -2,8 +2,6 @@
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import "./itemsTotal.css"
 

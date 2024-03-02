@@ -1,7 +1,7 @@
 import { useState } from "react";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 
 import Typography from "@mui/material/Typography";
@@ -24,7 +24,7 @@ function loadItems() {
 			title: "Rent",
 			description: "my weekly rent contribution",
 			date: dayjs(),
-			category: "housing"
+			category: "housing",
 		},
 		{
 			value: 672,
@@ -33,8 +33,7 @@ function loadItems() {
 			title: "Paycheck",
 			description: "my paycheck from my job",
 			date: dayjs(),
-			category: "work"
-			
+			category: "work",
 		},
 		{
 			value: 13.99,
@@ -43,9 +42,8 @@ function loadItems() {
 			title: "McDonalds",
 			description: "mmmmh, McDonalds",
 			date: dayjs(),
-			category: "fast food"
-			
-		}
+			category: "fast food",
+		},
 	];
 }
 
@@ -64,12 +62,20 @@ export default function Tracker() {
 			budgetTotal -= i.value;
 			expenseTotal += i.value;
 			expenseCount++;
-			expenseData.push({id: expenseData.length, value: i.value, label: i.category })
+			expenseData.push({
+				id: expenseData.length,
+				value: i.value,
+				label: i.category,
+			});
 		} else {
 			budgetTotal += i.value;
 			incomeTotal += i.value;
 			incomeCount++;
-			incomeData.push({id: incomeData.length, value: i.value , label: i.category })
+			incomeData.push({
+				id: incomeData.length,
+				value: i.value,
+				label: i.category,
+			});
 		}
 	}
 	const removeItem = (id) => {
@@ -99,11 +105,17 @@ export default function Tracker() {
 	return (
 		<div className="fullTracker">
 			<div className="Header">
-				<Typography className="header" variant="h3" component="h3" sx={{width: 1}} >(Current Day)</Typography>
+				<Typography
+					className="header"
+					variant="h3"
+					component="h3"
+					sx={{ width: 1 }}
+				>
+					(Current Day)
+				</Typography>
 			</div>
 			<div className="Tracker">
 				<Box className="item-stack">
-				
 					{trackedItems.map((item, i) => (
 						<TrackedItem
 							key={item.id}
@@ -114,24 +126,36 @@ export default function Tracker() {
 							date={item.date}
 							category={item.category}
 							remove={() => removeItem(item.id)}
-							update={updateItem}							
+							update={updateItem}
 							id={item.id}
 						/>
 					))}
 					<AddItem add={addItem} />
-					
-				
 				</Box>
-				
-				<ItemsTotal
-						className="Total"
-						value={budgetTotal}
-						incomeTotal={incomeTotal}
-						incomeCount={incomeCount}
-						expenseTotal={expenseTotal}
-						expenseCount={expenseCount}
-					/>
-				<TagCharts incomeData={incomeData} expenseData={expenseData}/>
+				<div className="data">
+					<div className="text">
+						<ItemsTotal
+							className="Total"
+							value={budgetTotal}
+							incomeTotal={incomeTotal}
+							incomeCount={incomeCount}
+							expenseTotal={expenseTotal}
+							expenseCount={expenseCount}
+						/>
+					</div>
+					<div className="charts">
+						<TagCharts
+							incomeData={incomeData}
+							expenseData={expenseData}
+							title={"Monthly"}
+						/>
+						<TagCharts
+							incomeData={incomeData}
+							expenseData={expenseData}
+							title={"Daily"}
+						/>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
