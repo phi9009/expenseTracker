@@ -10,6 +10,7 @@ import TrackedItem from "./TrackedItem";
 import ItemsTotal from "./ItemsTotal";
 import AddItem from "./AddItem";
 import TagCharts from "./TagCharts";
+import TrackStats from "./TrackStats";
 
 import "./Tracker.css";
 
@@ -45,37 +46,55 @@ function loadItems() {
 			category: "fast food",
 		},
 		{
-			value: 250,
+			value: 119,
 			isExpense: true,
 			id: uuidv4(),
-			title: "Rent",
-			description: "my weekly rent contribution",
+			title: "Turbotax",
+			description: "fee for filing with turbotax",
 			date: dayjs(),
-			category: "housing",
+			category: "fee",
 		},
 		{
-			value: 672,
-			isExpense: false,
-			id: uuidv4(),
-			title: "Paycheck",
-			description: "my paycheck from my job",
-			date: dayjs(),
-			category: "work",
-		},
-		{
-			value: 13.99,
+			value: 74,
 			isExpense: true,
 			id: uuidv4(),
-			title: "McDonalds",
-			description: "mmmmh, McDonalds",
+			title: "car registration",
+			description: "registration fee for car",
 			date: dayjs(),
-			category: "fast food",
+			category: "fee",
+		},
+		{
+			value: 21.43,
+			isExpense: true,
+			id: uuidv4(),
+			title: "IHOP",
+			description: "breakfast at Ihop",
+			date: dayjs(),
+			category: "restaurant",
+		},
+		{
+			value: 63.33,
+			isExpense: true,
+			id: uuidv4(),
+			title: "Albertsons",
+			description: "groceries",
+			date: dayjs(),
+			category: "groceries",
 		},
 	];
 }
 
 export default function Tracker() {
 	const [trackedItems, updateItems] = useState(loadItems);
+
+	const pallete = [
+		"#bb0000",
+		"#00bb00",
+		"#0000bb",
+		"#bbbb00",
+		"#880088",
+		"#bb7700",
+	];
 
 	let budgetTotal = 0;
 	let expenseTotal = 0;
@@ -89,14 +108,14 @@ export default function Tracker() {
 			budgetTotal -= i.value;
 			expenseTotal += i.value;
 			expenseCount++;
-			const checkExpense = expenseData.find( (e) => {
+			const checkExpense = expenseData.find((e) => {
 				console.log(i);
-				if(e.label === i.category)return true;
+				if (e.label === i.category) return true;
 				else return false;
-			}) 
-			if(checkExpense){
+			});
+			if (checkExpense) {
 				checkExpense.value += i.value;
-			}else{
+			} else {
 				expenseData.push({
 					id: expenseData.length,
 					value: i.value,
@@ -107,20 +126,34 @@ export default function Tracker() {
 			budgetTotal += i.value;
 			incomeTotal += i.value;
 			incomeCount++;
-			const checkIncome = incomeData.find( (e) => {
+			const checkIncome = incomeData.find((e) => {
 				console.log(i);
-				if(e.label === i.category)return true;
+				if (e.label === i.category) return true;
 				else return false;
-			}) 
-			if(checkIncome){
-				checkIncome.value += i.value;
-			}else{
-			incomeData.push({
-				id: incomeData.length,
-				value: i.value,
-				label: i.category,
 			});
+			if (checkIncome) {
+				checkIncome.value += i.value;
+			} else {
+				incomeData.push({
+					id: incomeData.length,
+					value: i.value,
+					label: i.category,
+				});
 			}
+		}
+		if (expenseData.length > 1) {
+			expenseData.sort((a, b) => {
+				if (a.value < b.value) return 1;
+				else if (a.value > b.value) return -1;
+				else return 0;
+			});
+		}
+		if (incomeData.length > 1) {
+			incomeData.sort((a, b) => {
+				if (a.value < b.value) return 1;
+				else if (a.value > b.value) return -1;
+				else return 0;
+			});
 		}
 	}
 	const removeItem = (id) => {
@@ -187,16 +220,20 @@ export default function Tracker() {
 							expenseTotal={expenseTotal}
 							expenseCount={expenseCount}
 						/>
+						<TrackStats title={"Expenses by Value"} data={expenseData} />
+						<TrackStats title={"Income by Value"} data={incomeData} />
 					</div>
 					<div className="charts">
 						<TagCharts
 							incomeData={incomeData}
 							expenseData={expenseData}
+							pallete={pallete}
 							title={"Monthly"}
 						/>
 						<TagCharts
 							incomeData={incomeData}
 							expenseData={expenseData}
+							pallete={pallete}
 							title={"Daily"}
 						/>
 					</div>
