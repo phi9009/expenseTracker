@@ -7,6 +7,8 @@ import ButtonRight from "./ButtonRight";
 import ButtonLeft from "./ButtonLeft";
 import Typography from "@mui/material/Typography";
 
+
+
 import TrackedItem from "./TrackedItem";
 import ItemsTotal from "./ItemsTotal";
 import AddItem from "./AddItem";
@@ -15,74 +17,37 @@ import TrackStats from "./TrackStats";
 
 import "./Tracker.css";
 
+function randomNumber(val){
+    return(Math.floor(Math.random() * val))
+}
+
+const titles = ["Rent", "food", "groceries", "computer", "games", "electricity", "water", "internet"]
+
+function seedItems(num){
+    const returnArray = [];
+    for(let i = 0; i < num; i++ ){
+		console.log(i);
+        returnArray.push(
+            {
+                value: randomNumber(1000),
+                isExpense: randomNumber(2)?1:0,
+                id: uuidv4(),
+                title: titles[randomNumber(titles.length)],
+                description: titles[randomNumber(titles.length)],
+                date: dayjs().set('month', randomNumber(12)).set('day', randomNumber(28)).set('year', 2024),
+                category: titles[randomNumber(titles.length)],
+            }
+        )
+    }
+    console.log(returnArray);
+    return returnArray;
+}
+
+
 function loadItems() {
-	const test = dayjs();
-	console.log(test);
-	return [
-		{
-			value: 250,
-			isExpense: true,
-			id: uuidv4(),
-			title: "Rent",
-			description: "my weekly rent contribution",
-			date: dayjs().set('month', 1).set('day', 2).set('year', 2024),
-			category: "housing",
-		},
-		{
-			value: 672,
-			isExpense: false,
-			id: uuidv4(),
-			title: "Paycheck",
-			description: "my paycheck from my job",
-			date:  dayjs().set('month', 1).set('day', 2).set('year', 2024),
-			category: "work",
-		},
-		{
-			value: 13.99,
-			isExpense: true,
-			id: uuidv4(),
-			title: "McDonalds",
-			description: "mmmmh, McDonalds",
-			date:  dayjs().set('month', 1).set('day', 2).set('year', 2024),
-			category: "fast food",
-		},
-		{
-			value: 119,
-			isExpense: true,
-			id: uuidv4(),
-			title: "Turbotax",
-			description: "fee for filing with turbotax",
-			date:  dayjs().set('month', 1).set('day', 2).set('year', 2024),
-			category: "fee",
-		},
-		{
-			value: 74,
-			isExpense: true,
-			id: uuidv4(),
-			title: "car registration",
-			description: "registration fee for car",
-			date: dayjs(),
-			category: "fee",
-		},
-		{
-			value: 21.43,
-			isExpense: true,
-			id: uuidv4(),
-			title: "IHOP",
-			description: "breakfast at Ihop",
-			date: dayjs(),
-			category: "restaurant",
-		},
-		{
-			value: 63.33,
-			isExpense: true,
-			id: uuidv4(),
-			title: "Albertsons",
-			description: "groceries",
-			date: dayjs(),
-			category: "groceries",
-		},
-	];
+	const topLevelItems = seedItems[200];
+	
+	return topLevelItems;
 }
 
 export default function Tracker() {
