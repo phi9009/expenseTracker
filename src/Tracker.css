@@ -23,6 +23,10 @@
     flex-direction: row;    
     
 }
+.Month {
+    display:inline-block;
+    width: 400px;
+}
 .item-stack {
     display:block;
     flex-direction: column;

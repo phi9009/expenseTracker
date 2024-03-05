@@ -10,7 +10,7 @@ export default function ItemsTotal( {value, expenseTotal, expenseCount, incomeTo
 	return (
 		<Card variant='outlined' className='ItemsTotal'>
             <CardContent>
-                <Typography variant='h6' component='h6' className={(value < 0) ? "negative" : ""} >
+                <Typography variant='h6' component='h6' className={(value < 0) ? "negative" : "positive"} >
                     Total: {(value < 0) ? "-" : ""}${Math.abs(value).toFixed(2)}
                 </Typography>
                 <Divider sx={{m: 2}}/>

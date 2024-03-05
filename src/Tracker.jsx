@@ -3,7 +3,8 @@ import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-
+import ButtonRight from "./ButtonRight";
+import ButtonLeft from "./ButtonLeft";
 import Typography from "@mui/material/Typography";
 
 import TrackedItem from "./TrackedItem";
@@ -24,7 +25,7 @@ function loadItems() {
 			id: uuidv4(),
 			title: "Rent",
 			description: "my weekly rent contribution",
-			date: dayjs(),
+			date: dayjs().set('month', 1).set('day', 2).set('year', 2024),
 			category: "housing",
 		},
 		{
@@ -33,7 +34,7 @@ function loadItems() {
 			id: uuidv4(),
 			title: "Paycheck",
 			description: "my paycheck from my job",
-			date: dayjs(),
+			date:  dayjs().set('month', 1).set('day', 2).set('year', 2024),
 			category: "work",
 		},
 		{
@@ -42,7 +43,7 @@ function loadItems() {
 			id: uuidv4(),
 			title: "McDonalds",
 			description: "mmmmh, McDonalds",
-			date: dayjs(),
+			date:  dayjs().set('month', 1).set('day', 2).set('year', 2024),
 			category: "fast food",
 		},
 		{
@@ -51,7 +52,7 @@ function loadItems() {
 			id: uuidv4(),
 			title: "Turbotax",
 			description: "fee for filing with turbotax",
-			date: dayjs(),
+			date:  dayjs().set('month', 1).set('day', 2).set('year', 2024),
 			category: "fee",
 		},
 		{
@@ -86,6 +87,7 @@ function loadItems() {
 
 export default function Tracker() {
 	const [trackedItems, updateItems] = useState(loadItems);
+	const [currentMonth, updateMonth] = useState(2);
 
 	const pallete = [
 		"#bb0000",
@@ -95,6 +97,9 @@ export default function Tracker() {
 		"#880088",
 		"#bb7700",
 	];
+	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
 
 	let budgetTotal = 0;
 	let expenseTotal = 0;
@@ -180,6 +185,13 @@ export default function Tracker() {
 		});
 	};
 
+
+	const changeMonth = (month) => {
+		if(month >= 12)month -= 12;
+		if(month < 0)month += 12; 
+		updateMonth(month);
+	}
+
 	return (
 		<div className="fullTracker">
 			<div className="Header">
@@ -189,7 +201,11 @@ export default function Tracker() {
 					component="h3"
 					sx={{ width: 1 }}
 				>
-					(Current Month)
+					<ButtonLeft change={() => (changeMonth(currentMonth-1))} />
+						<span className="Month">
+							{months[currentMonth]}
+						</span>
+					<ButtonRight change={() => (changeMonth(currentMonth+1))} />
 				</Typography>
 			</div>
 			<div className="Tracker">

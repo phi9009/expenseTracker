@@ -25,7 +25,7 @@ export default function TrackedShow({value, isExpense, title, description,date, 
                     category: {category}
                 </Typography>
                 <Divider sx={{m: 1}}/>
-                <Typography variant='h6' className={isExpense?"expense": ""}>
+                <Typography variant='h6' className={isExpense?"expense": "income"}>
                 {isExpense?"-": ""}${value.toFixed(2)}
                 </Typography>
             </CardContent>
