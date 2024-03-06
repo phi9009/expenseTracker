@@ -25,7 +25,7 @@ export default function TagCharts({incomeData, expenseData, title, pallete}){
           left: 20,
         },
       };
-      console.log(pallete);
+      
     return(
         <Card variant='outlined' className='TrackedItem' sx={{display: "flex", p: 2, flexWrap: "wrap"}}>
             <Typography className="header" variant="h4" component="div" sx={{mb: 2, width: 1}}>{title}</Typography>

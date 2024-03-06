@@ -7,8 +7,6 @@ import ButtonRight from "./ButtonRight";
 import ButtonLeft from "./ButtonLeft";
 import Typography from "@mui/material/Typography";
 
-
-
 import TrackedItem from "./TrackedItem";
 import ItemsTotal from "./ItemsTotal";
 import AddItem from "./AddItem";
@@ -17,36 +15,43 @@ import TrackStats from "./TrackStats";
 
 import "./Tracker.css";
 
-function randomNumber(val){
-    return(Math.floor(Math.random() * val))
+function randomNumber(val) {
+	return Math.floor(Math.random() * val);
 }
 
-const titles = ["Rent", "food", "groceries", "computer", "games", "electricity", "water", "internet"]
+const titles = [
+	"Rent",
+	"food",
+	"groceries",
+	"computer",
+	"games",
+	"electricity",
+	"water",
+	"internet",
+];
 
-function seedItems(num){
-    const returnArray = [];
-    for(let i = 0; i < num; i++ ){
-		console.log(i);
-        returnArray.push(
-            {
-                value: randomNumber(1000),
-                isExpense: randomNumber(2)?1:0,
-                id: uuidv4(),
-                title: titles[randomNumber(titles.length)],
-                description: titles[randomNumber(titles.length)],
-                date: dayjs().set('month', randomNumber(12)).set('day', randomNumber(28)).set('year', 2024),
-                category: titles[randomNumber(titles.length)],
-            }
-        )
-    }
-    console.log(returnArray);
-    return returnArray;
+function seedItems(num) {
+	const returnArray = [];
+	for (let i = 0; i < num; i++) {
+		returnArray.push({
+			value: randomNumber(1000),
+			isExpense: randomNumber(2) ? true : false,
+			id: uuidv4(),
+			title: titles[randomNumber(titles.length)],
+			description: titles[randomNumber(titles.length)],
+			date: dayjs()
+				.set("month", randomNumber(12))
+				.set("day", randomNumber(28))
+				.set("year", 2024),
+			category: titles[randomNumber(titles.length)],
+		});
+	}
+	return returnArray;
 }
-
 
 function loadItems() {
-	const topLevelItems = seedItems[200];
-	
+	const topLevelItems = seedItems(200);
+
 	return topLevelItems;
 }
 
@@ -62,9 +67,20 @@ export default function Tracker() {
 		"#880088",
 		"#bb7700",
 	];
-	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
-
+	const months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December",
+	];
 
 	let budgetTotal = 0;
 	let expenseTotal = 0;
@@ -73,13 +89,19 @@ export default function Tracker() {
 	let incomeCount = 0;
 	const incomeData = [];
 	const expenseData = [];
-	for (let i of trackedItems) {
+	const monthItems = trackedItems.filter(
+		(item) => {
+			return( item.date.get("month") === currentMonth)
+		});
+
+
+
+	for (let i of monthItems) {
 		if (i.isExpense === true) {
 			budgetTotal -= i.value;
 			expenseTotal += i.value;
 			expenseCount++;
 			const checkExpense = expenseData.find((e) => {
-				console.log(i);
 				if (e.label === i.category) return true;
 				else return false;
 			});
@@ -97,7 +119,6 @@ export default function Tracker() {
 			incomeTotal += i.value;
 			incomeCount++;
 			const checkIncome = incomeData.find((e) => {
-				console.log(i);
 				if (e.label === i.category) return true;
 				else return false;
 			});
@@ -111,6 +132,7 @@ export default function Tracker() {
 				});
 			}
 		}
+
 		if (expenseData.length > 1) {
 			expenseData.sort((a, b) => {
 				if (a.value < b.value) return 1;
@@ -126,6 +148,7 @@ export default function Tracker() {
 			});
 		}
 	}
+
 	const removeItem = (id) => {
 		updateItems((prevItems) => {
 			return prevItems.filter((t) => t.id !== id);
@@ -150,12 +173,11 @@ export default function Tracker() {
 		});
 	};
 
-
 	const changeMonth = (month) => {
-		if(month >= 12)month -= 12;
-		if(month < 0)month += 12; 
+		if (month >= 12) month -= 12;
+		if (month < 0) month += 12;
 		updateMonth(month);
-	}
+	};
 
 	return (
 		<div className="fullTracker">
@@ -166,16 +188,14 @@ export default function Tracker() {
 					component="h3"
 					sx={{ width: 1 }}
 				>
-					<ButtonLeft change={() => (changeMonth(currentMonth-1))} />
-						<span className="Month">
-							{months[currentMonth]}
-						</span>
-					<ButtonRight change={() => (changeMonth(currentMonth+1))} />
+					<ButtonLeft change={() => changeMonth(currentMonth - 1)} />
+					<span className="Month">{months[currentMonth]}</span>
+					<ButtonRight change={() => changeMonth(currentMonth + 1)} />
 				</Typography>
 			</div>
 			<div className="Tracker">
 				<Box className="item-stack">
-					{trackedItems.map((item, i) => (
+					{monthItems.map((item, i) => (
 						<TrackedItem
 							key={item.id}
 							value={item.value}

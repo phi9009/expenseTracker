@@ -2,7 +2,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Divider from "@mui/material/Divider";
-
+import { v4 as uuidv4 } from "uuid";
 export default function TrackStats({ title, data }) {
 	return (
 		<Card variant="outlined" className="ItemsTotal">
@@ -13,7 +13,7 @@ export default function TrackStats({ title, data }) {
 				<Divider sx={{ m: 2 }} />
 
 				{data.map((item, i) => (
-					<Typography variant="body2">
+					<Typography variant="body2" key={uuidv4()}>
 						{item.label} - ${item.value}
 					</Typography>
 				))}
