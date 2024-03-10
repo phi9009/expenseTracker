@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect  } from "react";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import Box from "@mui/material/Box";
@@ -51,14 +51,41 @@ function seedItems(num) {
 
 function loadItems() {
 	const topLevelItems = seedItems(200);
-
+	
 	return topLevelItems;
 }
 
 export default function Tracker() {
-	const [trackedItems, updateItems] = useState(loadItems);
-	const [currentMonth, updateMonth] = useState(2);
 
+	
+	const [trackedItems, updateItems] = useState([]);
+	const [currentMonth, updateMonth] = useState(2);
+	useEffect(() => {
+		fetch("./month", {
+		method: "GET",
+		headers: {
+			'Content-Type': 'application/json'
+			
+		},
+		})
+		.then((response) => {
+			console.log(response);
+			return response.json()
+		
+		})
+		.then((data) => {
+
+			const parsedData = data.map( (oldItem) => {
+				return {...oldItem, date : dayjs(oldItem.date) }
+			})
+			console.log( "pre");
+			updateItems(parsedData);
+			console.log(parsedData);
+			console.log( "success");
+		})
+		.catch((error) => console.log(error));
+	}, []);
+	console.log(trackedItems);
 	const pallete = [
 		"#bb0000",
 		"#00bb00",
