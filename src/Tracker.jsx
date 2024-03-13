@@ -177,9 +177,30 @@ export default function Tracker() {
 	}
 
 	const removeItem = (id) => {
-		updateItems((prevItems) => {
-			return prevItems.filter((t) => t.id !== id);
-		});
+		fetch(`./item/${id}`, {
+			method: "DELETE",
+			headers: {
+				'Content-Type': 'application/json'
+				
+			},
+			})
+			.then((response) => {
+				console.log(response, id);
+				return response.json()
+			
+			})
+			.then((data) => {
+	
+				if(data.deletedCount > 0){
+					console.log( "success");
+					updateItems((prevItems) => {
+						return prevItems.filter((t) => t._id !== id);
+					});
+				}
+				
+			})
+			.catch((error) => console.log(error));
+		
 	};
 
 	const updateItem = (id, i) => {
@@ -224,14 +245,14 @@ export default function Tracker() {
 				<Box className="item-stack">
 					{monthItems.map((item, i) => (
 						<TrackedItem
-							key={item.id}
+							key={item._id}
 							value={item.value}
 							isExpense={item.isExpense}
 							title={item.title}
 							description={item.description}
 							date={item.date}
 							category={item.category}
-							remove={() => removeItem(item.id)}
+							remove={() => removeItem(item._id)}
 							update={updateItem}
 							id={item.id}
 						/>
