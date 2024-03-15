@@ -204,21 +204,67 @@ export default function Tracker() {
 	};
 
 	const updateItem = (id, i) => {
-		updateItems((prevItems) => {
-			return prevItems.map((item) => {
-				if (item.id === id) {
-					return i;
-				} else {
-					return item;
+		console.log(i);
+		fetch(`./item/${id}`, {
+			method: "PUT",
+			headers: {
+				'Content-Type': 'application/json',
+				
+			},
+			body: JSON.stringify(i)
+			})
+			.then((response) => {
+				console.log(response, id);
+				return response.json()
+			
+			})
+			.then((data) => {
+	
+				if(data.success){
+					console.log( "success");
+					updateItems((prevItems) => {
+						return prevItems.map((item) => {
+							if (item.id === id) {
+								return i;
+							} else {
+								return item;
+							}
+						});
+					});
 				}
-			});
-		});
+				
+			})
+			.catch((error) => console.log(error));
+		
 	};
 
 	const addItem = (id, item) => {
-		updateItems((prevItems) => {
-			return [...prevItems, { ...item, id: uuidv4() }];
-		});
+		fetch(`./item/${id}`, {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+				
+			},
+			body: JSON.stringify(item)
+			})
+			.then((response) => {
+				console.log(response, id);
+				return response.json()
+			
+			})
+			.then((data) => {
+	
+				if(data != undefined){
+					console.log( data);
+					console.log( "success");
+					updateItems((prevItems) => {
+						return [...prevItems, { ...data, date : dayjs(data.date)}];
+					});
+				}
+				
+			})
+			.catch((error) => console.log(error));
+		
 	};
 
 	const changeMonth = (month) => {
@@ -254,7 +300,7 @@ export default function Tracker() {
 							category={item.category}
 							remove={() => removeItem(item._id)}
 							update={updateItem}
-							id={item.id}
+							id={item._id}
 						/>
 					))}
 					<AddItem add={addItem} />
