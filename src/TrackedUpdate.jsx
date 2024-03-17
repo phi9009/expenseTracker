@@ -1,5 +1,9 @@
+/** the form that works double duty as the input and update forms */
+
+// react imports
 import { useState } from "react";
 
+// MUI imports
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
@@ -14,37 +18,41 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+// this is the component that works as a form for both the TrackedItem, and AddItem components.
 export default function TrackedUpdate({value, isExpense, title, description, back,category, update,date, id}){ 
     
+    // define state
     const [item, updateItem] = useState({value, isExpense, title, description, date, category});
 
+        // handles the toggle for the expense/income toggle
     const handleToggle = (event) => {
         const newItem = {...item, isExpense: event.target.checked};
         updateItem(newItem);
     };
-
+    // calls the 'update' function that was handed to it by the higher level component.
     const handleUpdate = (event) => {
         let newValue =  parseFloat(item.value); 
         const newItem = {...item, value : newValue};
         update(id, newItem);
         back();
     }
-    
+       // captures the title text field
     const changeTitle = (event) => {
         const newItem = {...item, title: event.target.value};
         updateItem(newItem);
     }
-
+    // captures the category text field
     const changeCat = (event) => {
         const newItem = {...item, category: event.target.value};
         updateItem(newItem);
     }
-
+    // captures the description text field
     const changeDesc = (event) => {
         const newItem = {...item, description: event.target.value};
         updateItem(newItem);
     }
 
+    // captures the value text field
     const changeValue = (event) => {
 
         const newItem = {...item, value: event.target.value};
@@ -52,6 +60,7 @@ export default function TrackedUpdate({value, isExpense, title, description, bac
         
     }
 
+    // captures the date field
     const handleDate = (newDate) => {
         
         const newItem = {...item, date: newDate};

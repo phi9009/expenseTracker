@@ -1,3 +1,7 @@
+/** Another component that displays text data. this one shows the data of what's passed in
+ * it should be a list of categories in order from highest to lowest value
+ */
+
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";

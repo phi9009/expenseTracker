@@ -1,7 +1,9 @@
+/** this is the pie chart component that gave me such trouble 
+ * it's really just a settings object and the basic components with
+ * not even a bit of state.
+ */
 
 
-
-import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Card from '@mui/material/Card';
 import { PieChart } from '@mui/x-charts/PieChart';

@@ -1,3 +1,8 @@
+/** This component is the one used to show all of the items in the current expense/income list
+ * I realize now that you could easily have multiple items open to edit at the same time. idk how to prevent that
+ * Sounds like a fun weekend project. Not today.
+ */
+
 import { useState } from "react";
 
 import Card from '@mui/material/Card';
@@ -8,8 +13,10 @@ import './TrackedItem.css'
 
 
 export default function TrackedItem( {value, isExpense, title, description,date, remove, update, category, id}) {
+    // initializing state
     const [isBeingEditted, setEditted] = useState(false);
 
+    // same trick as the 'AddItem' component but now both choices are components in and off themselves.
     const itemShow = (
         <TrackedShow 
             value={value}

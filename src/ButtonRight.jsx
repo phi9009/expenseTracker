@@ -1,3 +1,8 @@
+/** simple componenet that simple acts as a button for the user
+ * to click on and change the month at the top
+ */
+
+
 import { ChevronRight } from "@mui/icons-material";
 import IconButton from '@mui/material/IconButton';
 

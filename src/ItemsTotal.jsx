@@ -1,4 +1,4 @@
-
+/** one of the plain text data displaying compents. it has no state, it mearly displays things */
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';

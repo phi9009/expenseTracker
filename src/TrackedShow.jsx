@@ -1,3 +1,5 @@
+/** This is the component to show the data and has buts to delete and edit the item. */
+
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
